@@ -58,8 +58,7 @@ fun UserInterface(myViewModel : DictionaryViewModel){
                 Text("Search")
             }
 
-                Text(text = myViewModel.state.value.definition)
-            Text(text = myViewModel.state.value.error.toString())
+            Text(myViewModel.state.value.definition)
 
         }
 

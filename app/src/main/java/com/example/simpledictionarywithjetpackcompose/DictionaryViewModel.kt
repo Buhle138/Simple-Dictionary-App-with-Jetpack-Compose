@@ -21,15 +21,17 @@ class DictionaryViewModel : ViewModel() {
         viewModelScope.launch {
             try{
                 val response = dictionaryResponse.getDefinition(wordSearch)
-                state.value = state.value.copy(
-                    definition = response.body().toString()
-                )
-               Log.i("Success Response from API", response.body().toString())
+                response.body()?.first()?.let {
+                    state.value = state.value.copy(
+                        definition = it.meanings.get(0).definitions.get(0).definition
+                    )
+                }
             }catch (e: Exception){
-                Log.i("Error response from API", wordSearch)
+
                 state.value = state.value.copy(
                     error = "Error fetching definitions ${e.message}"
                 )
+
             }
         }
     }
